@@ -6,6 +6,7 @@ import java.sql.Date;
 import javax.servlet.http.Part;
 
 public class EventBean {
+	 int    event_id;
 	 String title;
 	 String description;
 	 String price;
@@ -17,6 +18,41 @@ public class EventBean {
 	 String seats;
 	 Part image;
 	 String event_organizer;
+	 int likes;
+	 int going;
+	 int notGoing;
+	 int maybe;
+	 
+	public int getEvent_id() {
+			return event_id;
+		}
+	public void setEvent_id(int event_id) {
+			this.event_id = event_id;
+		}
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+	public int getGoing() {
+		return going;
+	}
+	public void setGoing(int going) {
+		this.going = going;
+	}
+	public int getNotGoing() {
+		return notGoing;
+	}
+	public void setNotGoing(int notGoing) {
+		this.notGoing = notGoing;
+	}
+	public int getMaybe() {
+		return maybe;
+	}
+	public void setMaybe(int maybe) {
+		this.maybe = maybe;
+	}
 	 
 	public String getTitle() {
 		return title;

@@ -416,7 +416,7 @@
 																<div class="left-buttons">
 																	<ul class="main-btns">
 																		<li><button class="main-btn-link" onclick="window.location.href = '#';">Buy Ticket</button></li>
-																		<li><button class="main-btn-link btn-hide" onclick="window.location.href = '#';">May Be</button></li>																		
+																		<li><button class="main-btn-link btn-hide" onclick="window.location.href = 'maybe?event_id=1';">May Be</button></li>																		
 																	</ul>
 																</div>
 																<div class="right-buttons">

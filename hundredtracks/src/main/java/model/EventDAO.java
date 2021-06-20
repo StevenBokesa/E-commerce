@@ -1,13 +1,16 @@
 package model;
 import bean.EventBean;
 import bean.LoginBean;
+import bean.Post;
 import bean.User;
 import controller.DBConnection;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +66,14 @@ public class EventDAO {
 	public List<EventBean> findAll() {
          List<EventBean> produc=new ArrayList<EventBean>();
         try {
-        	InputStream inputStream = null;
 
             db.connect();
             db.pstm=db.con.prepareStatement("SELECT * FROM event");
             db.rs=db.pstm.executeQuery();
             while(db.rs.next()){
                 EventBean p=new EventBean();
-               p.setTitle(db.rs.getString(2));
+                p.setEvent_id(db.rs.getInt(1));
+                p.setTitle(db.rs.getString(2));
                 p.setDescription(db.rs.getString(3));
                 p.setPrice(db.rs.getString(4));
                 p.setCity(db.rs.getString(5));
@@ -90,5 +93,55 @@ public class EventDAO {
         }
         return produc;
     }
+	
+	
+	public String updateMaybeAttending(EventBean event) {
+		try {
+			db.connect();
+			db.pstm=db.con.prepareStatement("UPDATE event SET maybe = ? WHERE event_id = ?;");
+			db.pstm.setInt(1, event.getMaybe()+1);
+			db.pstm.setInt(2, event.getEvents_id());
+			db.pstm.execute();
+			return "Event Update Successful.";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Event Update Failed.";
+		}
+	}
+
+
+	public EventBean findEventById(int event_id) {
+		// TODO Auto-generated method stub
+		 EventBean p=new EventBean();
+
+		
+		 try {
+	            db.connect();
+	            db.pstm=db.con.prepareStatement("SELECT * FROM event WHERE id = ?;");
+	            db.pstm.setInt(1, event_id);
+	            db.rs=db.pstm.executeQuery();
+	            if(db.rs.next()){
+	                p.setEvents_id(db.rs.getInt(1));
+	                p.setTitle(db.rs.getString(2));
+	                p.setDescription(db.rs.getString(3));
+	                p.setPrice(db.rs.getString(4));
+	                p.setCity(db.rs.getString(5));
+	                p.setDate(db.rs.getString(6));
+	                p.setEvent_start(db.rs.getString(7));
+	                p.setEvent_end(db.rs.getString(8));
+	                p.setVenue(db.rs.getString(9));
+	                p.setSeats(db.rs.getString(10));
+	               
+	                p.setEvent_organizer(db.rs.getString(12)); 
+	                
+	                
+	            }
+	        } catch (SQLException ex) {
+	            Logger.getLogger(EventDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+         return p;
+
+	}
+	
 	
 }

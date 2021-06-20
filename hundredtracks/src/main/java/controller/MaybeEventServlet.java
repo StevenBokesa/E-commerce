@@ -1,29 +1,45 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import bean.Post;
-import model.PostDAO;
+import bean.EventBean;
+import model.EventDAO;
 
-public class IndexServlet extends HttpServlet {
+public class MaybeEventServlet extends HttpServlet {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * Given the user click maybe from the event
+	 * When the event id has been sent through the request 
+	 * Then the maybe counter should increment by one
+	 * 
+	 */
+	int event_id = Integer.parseInt(request.getParameter("event_id"));
+	try {
+		EventDAO dao = new EventDAO();
+		EventBean event = dao.findEventById(event_id);
+		dao.updateMaybeAttending(event);
 		
-		request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		
 	}
 
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-		 
 	        processRequest(request, response);
 	    }
 
@@ -39,5 +55,6 @@ public class IndexServlet extends HttpServlet {
 	            throws ServletException, IOException {
 	        processRequest(request, response);
 	    }
+
 
 }

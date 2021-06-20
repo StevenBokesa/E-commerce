@@ -4,6 +4,11 @@
 
 <web-app>
   <display-name>HundredTracks</display-name>
+  
+	<servlet>
+	    <servlet-name>searchServlet</servlet-name>
+		<servlet-class>Search</servlet-class>
+	</servlet>  
     <servlet>
 	    <servlet-name>CommentServlet</servlet-name>
 	    <servlet-class>controller.CommentServlet</servlet-class>
@@ -46,7 +51,15 @@
         <servlet-name>ChangeProfile</servlet-name>
         <servlet-class>controller.ChangeProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MaybeEvents</servlet-name>
+        <servlet-class>controller.MaybeEventServlet</servlet-class>
+    </servlet>
 
+  <servlet-mapping>
+	<servlet-name>searchServlet</servlet-name>
+	<url-pattern>/search</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CommentServlet</servlet-name>
     <url-pattern>/comment</url-pattern>
@@ -86,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>ChangeProfile</servlet-name>
         <url-pattern>/ChangeProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MaybeEvents</servlet-name>
+        <url-pattern>/maybe</url-pattern>
     </servlet-mapping>
     
 </web-app>
